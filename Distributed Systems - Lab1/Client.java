@@ -17,9 +17,15 @@ public class Client extends Thread {
             requestSocket = new Socket("127.0.0.1", 4321);
             out = new ObjectOutputStream(requestSocket.getOutputStream());
             in = new ObjectInputStream(requestSocket.getInputStream());
-            Message request = new Message(new Integer(a), new Integer(b));
+            Message request = new Message(a, b);
+            System.out.println("Message created.");
             out.writeObject(request);
-
+            System.out.println("Message sent.");
+            try {
+                System.out.println("The sum is: " + ((Message) in.readObject()).sum);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
 
 
         } catch (UnknownHostException unknownHost) {
@@ -39,13 +45,5 @@ public class Client extends Thread {
     public static void main(String args[]) {
         new Client(10, 5).start();
         new Client(20, 5).start();
-        new Client(30, 5).start();
-        new Client(40, 5).start();
-        new Client(50, 5).start();
-        new Client(60, 5).start();
-        new Client(70, 5).start();
-        new Client(80, 5).start();
-        new Client(90, 5).start();
-        new Client(100, 5).start();
     }
 }

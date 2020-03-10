@@ -17,11 +17,10 @@ public class Server {
 
             while (true) {
                 connection = providerSocket.accept();
-                /*
-                 *
-                 *
-                 *
-                 */
+                System.out.println("Client connected.");
+                ActionsForClients add = new ActionsForClients(connection);
+                System.out.println("Handler created.");
+                new Thread(add).start();
             }
 
         } catch (IOException ioException) {

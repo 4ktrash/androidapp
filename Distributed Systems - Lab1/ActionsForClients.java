@@ -16,11 +16,16 @@ public class ActionsForClients extends Thread {
 
     public void run() {
         try {
-            /*
-             *
-             *
-             *
-             */
+            try {
+                Message request = (Message)in.readObject();
+                System.out.println("Message received.");
+                request.setSum(request.a + request.b);
+                System.out.println("Job's done!");
+                out.writeObject(request);
+                System.out.println("Object returning...");
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
